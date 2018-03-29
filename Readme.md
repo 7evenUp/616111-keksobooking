@@ -1,8 +1,8 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артём Шелудешев](https://up.htmlacademy.ru/javascript/13/user/616111).
-* Наставник: `Неизвестно`.
-
+* Наставник: `Денис Быков (https://up.htmlacademy.ru/javascript/13/user/66426)`.
+* Ссылка на вк наставника: `https://vk.com/dbykov82`.
 ---
 
 _Не удаляйте и не обращайте внимание на файлы:_<br>
