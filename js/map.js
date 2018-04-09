@@ -5,7 +5,7 @@ var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TIMINGS = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ACCOMODATION_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var AVATAR_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
+//var AVATAR_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -115,15 +115,15 @@ var createMapCard = function (arr) {
   // Работа с блоком Features
   for (var i = 0; i < FEATURES.length; i++) {
     if (!arr.offer.features.some(function (elem) {
-        return elem === FEATURES[i];
-      })) {
+      return elem === FEATURES[i];
+    })) {
       ulFeature.removeChild(liFeatures[i]);
     }
   }
   mapCardElement.querySelector('.popup__description').textContent = arr.offer.description;
   // Работа с блоком Photos
   mapCardElement.querySelector('.popup__photos').querySelector('img').src = arr.offer.photos[0];
-  for (var i = 1; i < 3; i++) {
+  for (i = 1; i < 3; i++) {
     mapCardElement.querySelector('.popup__photos').appendChild(photo.cloneNode()).src = arr.offer.photos[i];
   }
   mapCardElement.querySelector('.popup__avatar').src = arr.author.avatar;
