@@ -148,7 +148,7 @@ var renderAnnouncements = function () {
     bungalo: 'Бунгало',
     house: 'Дом',
     palace: 'Дворец'
-  }
+  };
   var announce = createMapCard(announcements[0], houseTypes, dom.template);
   cardFragment.appendChild(announce);
   dom.map.insertBefore(cardFragment, dom.filters);
