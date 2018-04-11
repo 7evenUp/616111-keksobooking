@@ -71,15 +71,15 @@ var getDOMElements = function () {
 };
 
 // Функция создания объекта объявления
-var createAnnounElement = function (avatar_number) {
+var createAnnounElement = function (avatarNumber) {
   var coordX = getRandomInteger(100, 1150);
   var coordY = getRandomInteger(200, 650);
   var firstPart = getRandomInteger(0, findMiddleOfArray(FEATURES));
   var secondPart = getRandomInteger(findMiddleOfArray(FEATURES), FEATURES.length);
   return {
     author: {
-      avatar: avatar_number < 9 ? 'img/avatars/user0' + (avatar_number + 1) + '.png':
-                                  'img/avatars/user' + (avatar_number + 1) + '.png'
+      avatar: avatarNumber < 9 ? 'img/avatars/user0' + (avatarNumber + 1) + '.png' :
+        'img/avatars/user' + (avatarNumber + 1) + '.png'
     },
     offer: {
       title: TITLES[getRandomInteger(0, TITLES.length)],
@@ -117,7 +117,7 @@ var createMapCard = function (arr) {
   mapCardElement.querySelector('.popup__title').textContent = arr.offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = arr.offer.address;
   mapCardElement.querySelector('.popup__text--price').textContent = arr.offer.price + '₽/ночь';
-  mapCardElement.querySelector('.popup__type').textContent = selectCorrectType(arr),
+  mapCardElement.querySelector('.popup__type').textContent = selectCorrectType(arr);
   mapCardElement.querySelector('.popup__text--capacity').textContent = arr.offer.rooms + ' комнаты для ' + arr.offer.guests + ' гостей';
   mapCardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr.offer.checkin + ', выезд до ' + arr.offer.checkout;
   mapCardElement.querySelector('.popup__description').textContent = arr.offer.description;
