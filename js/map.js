@@ -8,16 +8,18 @@ var ACCOMODATION_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
 var LOCATION_X_GAP = 25;
 var LOCATION_Y_GAP = 70;
 var X_LEFT_BORDER = 100;
-var X_RIGHT_BORDER = 1151;
+var X_RIGHT_BORDER = 1150;
 var Y_TOP_BORDER = 200;
-var Y_BOTTOM_BORDER = 651;
+var Y_BOTTOM_BORDER = 650;
 var MIN_PRICE = 1000;
-var MAX_PRICE = 1000001;
+var MAX_PRICE = 1000000;
 var NUMBER_OF_PINS = 8;
 
-// Нахождение случайного числа в промежутке [min, max)
+// Нахождение случайного числа в промежутке [min, max]
 var getRandomInteger = function (min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+  var rand = min - 0.5 + Math.random() * (max - min + 1);
+  rand = Math.round(rand);
+  return rand;
 };
 // Функция для метода sort, для рандомного перемешивания массива
 var compareFunction = function () {
@@ -66,25 +68,25 @@ var getDOMElements = function () {
 
 // Функция создания объекта объявления
 var createAnnounElement = function (avatarNumber) {
-  var avatarSrc = avatarNumber < 9 ? 'img/avatars/user0' + (avatarNumber + 1) + '.png' :
-    'img/avatars/user' + (avatarNumber + 1) + '.png';
+  var photoNumber = avatarNumber < 9 ? '0' + (avatarNumber + 1) : avatarNumber + 1;
+  var avatarSrc = 'img/avatars/user' + photoNumber + '.png';
   var coordX = getRandomInteger(X_LEFT_BORDER, X_RIGHT_BORDER);
   var coordY = getRandomInteger(Y_TOP_BORDER, Y_BOTTOM_BORDER);
-  var firstPart = getRandomInteger(0, findMiddleOfArray(FEATURES));
-  var secondPart = getRandomInteger(findMiddleOfArray(FEATURES), FEATURES.length);
+  var firstPart = getRandomInteger(0, findMiddleOfArray(FEATURES) - 1);
+  var secondPart = getRandomInteger(findMiddleOfArray(FEATURES), FEATURES.length - 1);
   return {
     author: {
       avatar: avatarSrc
     },
     offer: {
-      title: TITLES[getRandomInteger(0, TITLES.length)],
+      title: TITLES[getRandomInteger(0, TITLES.length - 1)],
       address: coordX + ', ' + coordY,
       price: getRandomInteger(MIN_PRICE, MAX_PRICE),
-      type: TYPES[getRandomInteger(0, TYPES.length)],
-      rooms: getRandomInteger(1, 6),
-      guests: getRandomInteger(1, 6),
-      checkin: TIMINGS[getRandomInteger(0, TIMINGS.length)],
-      checkout: TIMINGS[getRandomInteger(0, TIMINGS.length)],
+      type: TYPES[getRandomInteger(0, TYPES.length - 1)],
+      rooms: getRandomInteger(1, 5),
+      guests: getRandomInteger(1, 5),
+      checkin: TIMINGS[getRandomInteger(0, TIMINGS.length - 1)],
+      checkout: TIMINGS[getRandomInteger(0, TIMINGS.length - 1)],
       features: shaffleArray(FEATURES).slice(firstPart, secondPart),
       description: '',
       photos: shaffleArray(ACCOMODATION_PHOTOS)
