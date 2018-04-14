@@ -16,7 +16,6 @@ var MAX_PRICE = 1000000;
 var NUMBER_OF_PINS = 8;
 var MAIN_PIN_SIZE = 65;
 var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
 
 // Нахождение случайного числа в промежутке [min, max]
 var getRandomInteger = function (min, max) {
@@ -111,10 +110,10 @@ var createMapCard = function (arr, tmpl) {
   var roomsAndGuests = arr.offer.rooms + ' комнаты для ' + arr.offer.guests + ' гостей';
   var checkinCheckout = 'Заезд после ' + arr.offer.checkin + ', выезд до ' + arr.offer.checkout;
   var houseTypes = {
-      flat: 'Квартира',
-      bungalo: 'Бунгало',
-      house: 'Дом',
-      palace: 'Дворец'
+    flat: 'Квартира',
+    bungalo: 'Бунгало',
+    house: 'Дом',
+    palace: 'Дворец'
   };
 
   var mapCardElement = tmpl.querySelector('.map__card').cloneNode(true);
@@ -148,7 +147,7 @@ var beginAction = function () {
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.filters);
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.keyCode === ESC_KEYCODE) {
         closePopup();
       }
@@ -157,8 +156,8 @@ var beginAction = function () {
 
   // Функция закрытия окна информации
   var closePopup = function () {
-      dom.map.removeChild(document.querySelector('.popup'));
-    };
+    dom.map.removeChild(document.querySelector('.popup'));
+  };
 
   // Создание метки
   var createMapPin = function (arrElement) {
@@ -169,7 +168,7 @@ var beginAction = function () {
     mapPinElement.querySelector('img').alt = arrElement.offer.title;
 
     // Добавление обработчиков событий
-    mapPinElement.addEventListener('click', function() {
+    mapPinElement.addEventListener('click', function () {
       // Проверка на уже открытое окно, чтобы они не накапливались
       if (document.querySelector('.popup')) {
         closePopup();
@@ -221,7 +220,7 @@ var beginAction = function () {
   };
 
   // Обработчик на нажатие главной метки
-  dom.mainPin.addEventListener('mouseup', function(e) {
+  dom.mainPin.addEventListener('mouseup', function (e) {
     var target = e.target;
     activateMap();
     setCoords(target);
