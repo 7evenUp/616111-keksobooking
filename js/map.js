@@ -147,16 +147,19 @@ var beginAction = function () {
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.filters);
 
-    document.addEventListener('keydown', function (e) {
-      if (e.keyCode === ESC_KEYCODE) {
-        closePopup();
-      }
-    });
+    document.addEventListener('keydown', onPopupEscPress);
   };
 
   // Функция закрытия окна информации
+  var onPopupEscPress = function (e) {
+    if (e.keyCode === ESC_KEYCODE) {
+      closePopup();
+    }
+  };
+
   var closePopup = function () {
     dom.map.removeChild(document.querySelector('.popup'));
+    document.removeEventListener('keydown', onPopupEscPress);
   };
 
   // Создание метки
@@ -174,12 +177,10 @@ var beginAction = function () {
         closePopup();
       }
       openPopup(arrElement);
-      // Объявление переменных здесь, потому что искомые элементы появляются только после openPopup()
+      // Объявление переменной здесь, потому что искомый элемент появляется только после openPopup()
       var closeMapCard = document.querySelector('.popup__close');
-      var popup = document.querySelector('.popup');
-
       closeMapCard.addEventListener('click', function () {
-        dom.map.removeChild(popup);
+        closePopup();
       });
     });
 
@@ -231,4 +232,3 @@ var beginAction = function () {
   setCoords();
 };
 beginAction();
-
