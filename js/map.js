@@ -208,10 +208,20 @@ var beginAction = function () {
     }
   };
 
+  // Функция удаления меток, если они уже существуют на карте
+  var deletePins = function (array) {
+    for (var i = array.length - 1; i >= 0; i--) {
+      if (array[i].type === 'button') {
+        array[i].parentNode.removeChild(array[i]);
+      }
+    }
+  };
+
   // Функция отрисовки меток при нажатии на главную метку
   var showMapPins = function () {
     var pinFragment = document.createDocumentFragment();
     var mapPins = dom.mapPinsList;
+    deletePins(mapPins.children);
     for (var i = 0; i < NUMBER_OF_PINS; i++) {
       var announElement = createAnnounElement(i);
       var mapPin = createMapPin(announElement);
