@@ -16,6 +16,13 @@ var MAX_PRICE = 1000000;
 var NUMBER_OF_PINS = 8;
 var MAIN_PIN_SIZE = 65;
 var ESC_KEYCODE = 27;
+var HOUSE_TYPES = {
+    flat: 'Квартира',
+    bungalo: 'Бунгало',
+    house: 'Дом',
+    palace: 'Дворец'
+  };
+var SHARP_END_HEIGHT = 12;
 
 // Нахождение случайного числа в промежутке [min, max]
 var getRandomInteger = function (min, max) {
@@ -109,18 +116,12 @@ var createMapCard = function (arr, tmpl) {
   var currency = '₽/ночь';
   var roomsAndGuests = arr.offer.rooms + ' комнаты для ' + arr.offer.guests + ' гостей';
   var checkinCheckout = 'Заезд после ' + arr.offer.checkin + ', выезд до ' + arr.offer.checkout;
-  var houseTypes = {
-    flat: 'Квартира',
-    bungalo: 'Бунгало',
-    house: 'Дом',
-    palace: 'Дворец'
-  };
 
   var mapCardElement = tmpl.querySelector('.map__card').cloneNode(true);
   mapCardElement.querySelector('.popup__title').textContent = arr.offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = arr.offer.address;
   mapCardElement.querySelector('.popup__text--price').textContent = arr.offer.price + currency;
-  mapCardElement.querySelector('.popup__type').textContent = houseTypes[arr.offer.type];
+  mapCardElement.querySelector('.popup__type').textContent = HOUSE_TYPES[arr.offer.type];
   mapCardElement.querySelector('.popup__text--capacity').textContent = roomsAndGuests;
   mapCardElement.querySelector('.popup__text--time').textContent = checkinCheckout;
   mapCardElement.querySelector('.popup__description').textContent = arr.offer.description;
@@ -158,8 +159,11 @@ var beginAction = function () {
   };
 
   var closePopup = function () {
-    dom.map.removeChild(document.querySelector('.popup'));
-    document.removeEventListener('keydown', onPopupEscPress);
+    var popup = document.querySelector('.popup');
+    if (popup) {
+      dom.map.removeChild(document.querySelector('.popup'));
+      document.removeEventListener('keydown', onPopupEscPress);
+    }
   };
 
   // Создание метки
@@ -203,7 +207,7 @@ var beginAction = function () {
       dom.address.value = left + ', ' + top;
     } else {
       left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
-      top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE);
+      top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE + SHARP_END_HEIGHT);
       dom.address.value = left + ', ' + top;
     }
   };
