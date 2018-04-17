@@ -210,18 +210,18 @@ var beginAction = function () {
     // ТЗ 2.3
     var onFormTypeChange = function () {
       var selectedType = formTypeSelect.options[formTypeSelect.selectedIndex].value;
-      if (selectedType === "bungalo") {
-        formPrice.min = "0";
-        formPrice.placeholder = "0";
-      } else if (selectedType === "flat") {
-        formPrice.min = "1000";
-        formPrice.placeholder = "1000";
-      } else if (selectedType === "house") {
-        formPrice.min = "5000";
-        formPrice.placeholder = "5000";
+      if (selectedType === 'bungalo') {
+        formPrice.min = '0';
+        formPrice.placeholder = '0';
+      } else if (selectedType === 'flat') {
+        formPrice.min = '1000';
+        formPrice.placeholder = '1000';
+      } else if (selectedType === 'house') {
+        formPrice.min = '5000';
+        formPrice.placeholder = '5000';
       } else {
-        formPrice.min = "10000";
-        formPrice.placeholder = "10000";
+        formPrice.min = '10000';
+        formPrice.placeholder = '10000';
       }
     };
     var formPrice = form.querySelector('#price');
@@ -239,14 +239,14 @@ var beginAction = function () {
       } else {
         secondSelect.options[2].selected = 'true';
       }
-    }
+    };
 
     // Обработчик изменения select'ов
-    var onFormTimeChange = function () {
-      if (this === formTimeIn) {
-        syncFormTimes(this, formTimeOut);
+    var onFormTimeChange = function (e) {
+      if (e.target === formTimeIn) {
+        syncFormTimes(e.target, formTimeOut);
       } else {
-        syncFormTimes(this, formTimeIn);
+        syncFormTimes(e.target, formTimeIn);
       }
     };
     var formTimeIn = form.querySelector('#timein');
