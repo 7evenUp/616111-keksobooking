@@ -191,12 +191,113 @@ var beginAction = function () {
     return mapPinElement;
   };
 
+  // Работа с формами
+  var validateForms = function (form) {
+    // ТЗ 2.1
+    var formTitle = form.querySelector('#title');
+    formTitle.addEventListener('invalid', function () {
+      if (formTitle.validity.tooShort) {
+        formTitle.setCustomValidity('Объявление должно состоять минимум из 30-ти символов');
+      } else if (formTitle.validity.tooLong) {
+        formTitle.setCustomValidity('Объявление должно состоять максимум из 100-та символов');
+      } else if (formTitle.validity.valueMissing) {
+        formTitle.setCustomValidity('Обязательное поле для заполнения');
+      } else {
+        formTitle.setCustomValidity('');
+      }
+    });
+
+    // ТЗ 2.3
+    var onFormTypeChange = function () {
+      var selectedType = formTypeSelect.options[formTypeSelect.selectedIndex].value;
+      if (selectedType === "bungalo") {
+        formPrice.min = "0";
+        formPrice.placeholder = "0";
+      } else if (selectedType === "flat") {
+        formPrice.min = "1000";
+        formPrice.placeholder = "1000";
+      } else if (selectedType === "house") {
+        formPrice.min = "5000";
+        formPrice.placeholder = "5000";
+      } else {
+        formPrice.min = "10000";
+        formPrice.placeholder = "10000";
+      }
+    };
+    var formPrice = form.querySelector('#price');
+    var formTypeSelect = form.querySelector('#type');
+    formTypeSelect.addEventListener('change', onFormTypeChange);
+
+    // ТЗ 2.5
+    // Функция синхронизации времени
+    var syncFormTimes = function (firstSelect, secondSelect) {
+      var selectedTime = firstSelect.selectedIndex;
+      if (selectedTime === 0) {
+        secondSelect.options[0].selected = 'true';
+      } else if (selectedTime === 1) {
+        secondSelect.options[1].selected = 'true';
+      } else {
+        secondSelect.options[2].selected = 'true';
+      }
+    }
+
+    // Обработчик изменения select'ов
+    var onFormTimeChange = function () {
+      if (this === formTimeIn) {
+        syncFormTimes(this, formTimeOut);
+      } else {
+        syncFormTimes(this, formTimeIn);
+      }
+    };
+    var formTimeIn = form.querySelector('#timein');
+    var formTimeOut = form.querySelector('#timeout');
+    formTimeIn.addEventListener('change', onFormTimeChange);
+    formTimeOut.addEventListener('change', onFormTimeChange);
+
+    // ТЗ 2.6
+    var disableOptions = function (array) {
+      for (var i = 0; i < array.length; i++) {
+        guestsNumber.options[i].setAttribute('disabled', 'true');
+      }
+    };
+
+    var onRoomSelectChange = function () {
+      var selects = guestsNumber.options;
+      var selectedIndex = roomNumber.selectedIndex;
+      if (selectedIndex === 0) {
+        disableOptions(guestsNumber.children);
+        selects[2].removeAttribute('disabled');
+        selects[2].selected = 'true';
+      } else if (selectedIndex === 1) {
+        disableOptions(guestsNumber.children);
+        selects[2].removeAttribute('disabled');
+        selects[1].removeAttribute('disabled');
+        selects[1].selected = 'true';
+      } else if (selectedIndex === 2) {
+        disableOptions(guestsNumber.children);
+        selects[2].removeAttribute('disabled');
+        selects[1].removeAttribute('disabled');
+        selects[0].removeAttribute('disabled');
+        selects[0].selected = 'true';
+      } else {
+        disableOptions(guestsNumber.children);
+        selects[3].removeAttribute('disabled');
+        selects[3].selected = 'true';
+      }
+    };
+
+    var roomNumber = form.querySelector('#room_number');
+    var guestsNumber = form.querySelector('#capacity');
+    roomNumber.addEventListener('change', onRoomSelectChange);
+  };
+
   var activateMap = function () {
     dom.map.classList.remove('map--faded');
     dom.form.classList.remove('ad-form--disabled');
     for (var i = 0; i < dom.fieldsets.length; i++) {
       dom.fieldsets[i].removeAttribute('disabled');
     }
+    validateForms(dom.form);
   };
 
   // Установка координат метки с самого начала и в поставленной точке, соответственно
