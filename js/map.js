@@ -17,11 +17,11 @@ var NUMBER_OF_PINS = 8;
 var MAIN_PIN_SIZE = 65;
 var ESC_KEYCODE = 27;
 var HOUSE_TYPES = {
-    flat: 'Квартира',
-    bungalo: 'Бунгало',
-    house: 'Дом',
-    palace: 'Дворец'
-  };
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец'
+};
 var SHARP_END_HEIGHT = 12;
 
 // Нахождение случайного числа в промежутке [min, max]
