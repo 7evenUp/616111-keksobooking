@@ -5,8 +5,8 @@ var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TIMINGS = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ACCOMODATION_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var LOCATION_X_GAP = 25;
-var LOCATION_Y_GAP = 70;
+var PIN_X_SIZE = 50;
+var PIN_Y_SIZE = 70;
 var X_LEFT_BORDER = 100;
 var X_RIGHT_BORDER = 1150;
 var Y_TOP_BORDER = 200;
@@ -169,8 +169,8 @@ var beginAction = function () {
   // Создание метки
   var createMapPin = function (arrElement) {
     var mapPinElement = dom.template.querySelector('.map__pin').cloneNode(true);
-    mapPinElement.style.left = (arrElement.location.x - LOCATION_X_GAP) + 'px';
-    mapPinElement.style.top = (arrElement.location.y - LOCATION_Y_GAP) + 'px';
+    mapPinElement.style.left = (arrElement.location.x - PIN_X_SIZE / 2) + 'px';
+    mapPinElement.style.top = (arrElement.location.y - PIN_Y_SIZE) + 'px';
     mapPinElement.querySelector('img').src = arrElement.author.avatar;
     mapPinElement.querySelector('img').alt = arrElement.offer.title;
 
@@ -232,7 +232,7 @@ var beginAction = function () {
     // Функция синхронизации времени
     var syncFormTimes = function (firstSelect, secondSelect) {
       var selectedTime = firstSelect.selectedIndex;
-      if (selectedTime === 0) {
+      if (!selectedTime) {
         secondSelect.options[0].selected = 'true';
       } else if (selectedTime === 1) {
         secondSelect.options[1].selected = 'true';
