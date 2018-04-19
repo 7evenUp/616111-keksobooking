@@ -401,7 +401,7 @@ var beginAction = function () {
 
     // ------------------------------------------------
 
-    var onMouseUp = function (upEvt) {
+    var onMouseUp = function () {
       setAddressCoords(dragElement);
       showMapPins();
       document.removeEventListener('mousemove', onMouseMove);
