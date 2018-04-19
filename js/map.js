@@ -5,8 +5,8 @@ var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TIMINGS = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ACCOMODATION_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var PIN_X_SIZE = 50;
-var PIN_Y_SIZE = 70;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 var X_LEFT_BORDER = 100;
 var X_RIGHT_BORDER = 1150;
 var Y_TOP_BORDER = 200;
@@ -42,6 +42,15 @@ var shaffleArray = function (arr) {
 var findMiddleOfArray = function (arr) {
   return Math.round((arr.length - 1) / 2);
 };
+// Функции для получения адреса PIN'ов
+var getPinPosX = function (x) {
+  var offsetX = Math.round(PIN_WIDTH / 2);
+  return x - offsetX;
+};
+var getPinPosY = function (y) {
+  var offsetY = Math.round(PIN_HEIGHT);
+  return y - offsetY;
+};
 
 // Начало основного функционала
 // Функция вставки картинок в шаблон
@@ -68,6 +77,7 @@ var renderFeatures = function (array, mainTmplElement) {
 // Функция получения объекта с ссылками на DOM элементы
 var getDOMElements = function () {
   return {
+    body: document.querySelector('body'),
     map: document.querySelector('.map'),
     mapPinsList: document.querySelector('.map__pins'),
     mainPin: document.querySelector('.map__pin--main'),
@@ -169,8 +179,8 @@ var beginAction = function () {
   // Создание метки
   var createMapPin = function (arrElement) {
     var mapPinElement = dom.template.querySelector('.map__pin').cloneNode(true);
-    mapPinElement.style.left = (arrElement.location.x - PIN_X_SIZE / 2) + 'px';
-    mapPinElement.style.top = (arrElement.location.y - PIN_Y_SIZE) + 'px';
+    mapPinElement.style.left = getPinPosX(arrElement.location.x) + 'px';
+    mapPinElement.style.top = getPinPosY(arrElement.location.y) + 'px';
     mapPinElement.querySelector('img').src = arrElement.author.avatar;
     mapPinElement.querySelector('img').alt = arrElement.offer.title;
 
@@ -301,7 +311,7 @@ var beginAction = function () {
   };
 
   // Установка координат метки с самого начала и в поставленной точке, соответственно
-  var setCoords = function (trgt) {
+  var setAddressCoords = function (trgt) {
     var left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
     var top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE / 2);
     if (!trgt) {
@@ -336,14 +346,75 @@ var beginAction = function () {
   };
 
   // Обработчик на нажатие главной метки
-  dom.mainPin.addEventListener('mouseup', function (e) {
-    var target = e.target;
+  dom.mainPin.addEventListener('mousedown', function (e) {
     activateMap();
-    setCoords(target);
-    showMapPins();
+    var dragElement = e.target;
+    dom.mainPin.style.zIndex = 1000;
+
+    var startCoords = {
+      x: e.clientX,
+      y: e.clientY
+    };
+
+    var checkBorders = function () {
+      // ТЗ 3.4
+      var bottomBorder = dom.mainPin.offsetTop + MAIN_PIN_SIZE;
+      if (bottomBorder > 500) {
+        dom.mainPin.style.top = 500 - MAIN_PIN_SIZE + 'px';
+      }
+      // -----
+      var topBorder = parseInt(dom.mainPin.style.top, 10);
+      if (topBorder < 150) {
+        dom.mainPin.style.top = 150 + 'px';
+      }
+      // -----
+      var leftBorder = parseInt(dom.mainPin.style.left, 10);
+      if (leftBorder < 0) {
+        dom.mainPin.style.left = 0 + 'px';
+      }
+      // -----
+      var rightBorder = parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE;
+      if (rightBorder > dom.body.clientWidth) {
+        dom.mainPin.style.left = dom.body.clientWidth - MAIN_PIN_SIZE + 'px';
+      }
+    };
+
+    // ------------------------------------------------
+
+    var onMouseMove = function (moveEvt) {
+      setAddressCoords(dragElement);
+      checkBorders();
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
+
+      dom.mainPin.style.top = (dom.mainPin.offsetTop - shift.y) + 'px';
+      dom.mainPin.style.left = (dom.mainPin.offsetLeft - shift.x) + 'px';
+    };
+
+    // ------------------------------------------------
+
+    var onMouseUp = function (upEvt) {
+      setAddressCoords(dragElement);
+      showMapPins();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    // ------------------------------------------------
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
 
   disableFields();
-  setCoords();
+  setAddressCoords();
 };
 beginAction();
