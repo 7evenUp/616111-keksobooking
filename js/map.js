@@ -9,8 +9,8 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var X_LEFT_BORDER = 100;
 var X_RIGHT_BORDER = 1150;
-var Y_TOP_BORDER = 200;
-var Y_BOTTOM_BORDER = 650;
+var Y_TOP_BORDER = 150;
+var Y_BOTTOM_BORDER = 500;
 var MIN_PRICE = 1000;
 var MAX_PRICE = 1000000;
 var NUMBER_OF_PINS = 8;
@@ -50,6 +50,9 @@ var getPinPosX = function (x) {
 var getPinPosY = function (y) {
   var offsetY = Math.round(PIN_HEIGHT);
   return y - offsetY;
+};
+var getPinPos = function (offset, coord) {
+  return offset - coord;
 };
 
 // Начало основного функционала
@@ -346,7 +349,7 @@ var beginAction = function () {
   };
 
   // Обработчик на нажатие главной метки
-  dom.mainPin.addEventListener('mousedown', function (e) {
+  var onMainPinMouseDown = function (e) {
     activateMap();
     var dragElement = e.target;
     dom.mainPin.style.zIndex = 1000;
@@ -357,15 +360,14 @@ var beginAction = function () {
     };
 
     var checkBorders = function () {
-      // ТЗ 3.4
-      var bottomBorder = dom.mainPin.offsetTop + MAIN_PIN_SIZE;
-      if (bottomBorder > 500) {
-        dom.mainPin.style.top = 500 - MAIN_PIN_SIZE + 'px';
+      var bottomBorder = dom.mainPin.offsetTop + MAIN_PIN_SIZE + SHARP_END_HEIGHT;
+      if (bottomBorder > Y_BOTTOM_BORDER) {
+        dom.mainPin.style.top = Y_BOTTOM_BORDER - (MAIN_PIN_SIZE + SHARP_END_HEIGHT) + 'px';
       }
       // -----
-      var topBorder = parseInt(dom.mainPin.style.top, 10);
-      if (topBorder < 150) {
-        dom.mainPin.style.top = 150 + 'px';
+      var topBorder = dom.mainPin.offsetTop + MAIN_PIN_SIZE + SHARP_END_HEIGHT;
+      if (topBorder < Y_TOP_BORDER) {
+        dom.mainPin.style.top = Y_TOP_BORDER - (MAIN_PIN_SIZE + SHARP_END_HEIGHT) + 'px';
       }
       // -----
       var leftBorder = parseInt(dom.mainPin.style.left, 10);
@@ -395,8 +397,8 @@ var beginAction = function () {
         y: moveEvt.clientY
       };
 
-      dom.mainPin.style.top = (dom.mainPin.offsetTop - shift.y) + 'px';
-      dom.mainPin.style.left = (dom.mainPin.offsetLeft - shift.x) + 'px';
+      dom.mainPin.style.top = getPinPos(dom.mainPin.offsetTop, shift.y) + 'px';
+      dom.mainPin.style.left = getPinPos(dom.mainPin.offsetLeft, shift.x) + 'px';
     };
 
     // ------------------------------------------------
@@ -412,8 +414,9 @@ var beginAction = function () {
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
 
+  dom.mainPin.addEventListener('mousedown', onMainPinMouseDown);
   disableFields();
   setAddressCoords();
 };
