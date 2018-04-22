@@ -32,7 +32,7 @@
 
   window.card = {
     createMapCard: function (array) {
-      var dom = util.dom;
+      var dom = window.util.dom;
       var currency = '₽/ночь';
       var roomsAndGuests = array.offer.rooms + ' комнаты для ' + array.offer.guests + ' гостей';
       var checkinCheckout = 'Заезд после ' + array.offer.checkin + ', выезд до ' + array.offer.checkout;
@@ -50,4 +50,5 @@
       return mapCard;
     }
   };
-})()
+
+})();

@@ -4,7 +4,7 @@
   var MAIN_PIN_SIZE = 65;
   var SHARP_END_HEIGHT = 12;
 
-  var dom = util.dom;
+  var dom = window.util.dom;
   var form = dom.form;
 
   var titleInput = form.querySelector('#title');
@@ -116,4 +116,4 @@
     },
 
   };
-})()
+})();

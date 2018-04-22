@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
-  var dom = util.dom;
+  var dom = window.util.dom;
   var mainPin = dom.mainPin;
 
-  mainPin.addEventListener('mousedown', map.onMainPinMouseDown);
-  util.disableFields();
-  form.setAddressCoords();
-})()
+  mainPin.addEventListener('mousedown', window.map.onMainPinMouseDown);
+  window.util.disableFields();
+  window.form.setAddressCoords();
+})();

@@ -2,11 +2,11 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var dom = util.dom;
+  var dom = window.util.dom;
 
   var openPopup = function (array) {
     var cardFragment = document.createDocumentFragment();
-    var mapCard = card.createMapCard(array);
+    var mapCard = window.card.createMapCard(array);
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.filters);
 
@@ -37,8 +37,8 @@
   window.pin = {
     createMapPin: function (arrElement) {
       var mapPin = dom.template.querySelector('.map__pin').cloneNode(true);
-      mapPin.style.left = util.getPinPosX(arrElement.location.x) + 'px';
-      mapPin.style.top = util.getPinPosY(arrElement.location.y) + 'px';
+      mapPin.style.left = window.util.getPinPosX(arrElement.location.x) + 'px';
+      mapPin.style.top = window.util.getPinPosY(arrElement.location.y) + 'px';
       mapPin.querySelector('img').src = arrElement.author.avatar;
       mapPin.querySelector('img').alt = arrElement.offer.title;
 
@@ -53,4 +53,4 @@
       return mapPin;
     }
   };
-})()
+})();

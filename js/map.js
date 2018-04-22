@@ -3,12 +3,7 @@
 (function () {
   var NUMBER_OF_PINS = 8;
 
-  var dom = util.dom;
-  var disableFields = function () {
-    for (var i = 0; i < dom.fieldsets.length; i++) {
-      dom.fieldsets[i].setAttribute('disabled', 'disabled');
-    }
-  };
+  var dom = window.util.dom;
 
   var activateMap = function () {
     dom.map.classList.remove('map--faded');
@@ -16,7 +11,7 @@
     for (var i = 0; i < dom.fieldsets.length; i++) {
       dom.fieldsets[i].removeAttribute('disabled');
     }
-    form.validateForms();
+    window.form.validateForms();
   };
 
   var deletePins = function (array) {
@@ -32,8 +27,8 @@
     var mapPins = dom.mapPinsList;
     deletePins(mapPins.children);
     for (var i = 0; i < NUMBER_OF_PINS; i++) {
-      var announElement = data.createAnnounElement(i);
-      var mapPin = pin.createMapPin(announElement);
+      var announElement = window.data.createAnnounElement(i);
+      var mapPin = window.pin.createMapPin(announElement);
       pinFragment.appendChild(mapPin);
     }
     mapPins.appendChild(pinFragment);
@@ -51,8 +46,8 @@
       };
 
       var onMouseMove = function (moveEvt) {
-        form.setAddressCoords(dragElement);
-        util.checkBorders();
+        window.form.setAddressCoords(dragElement);
+        window.util.checkBorders();
 
         var shift = {
           x: startCoords.x - moveEvt.clientX,
@@ -69,7 +64,7 @@
       };
 
       var onMouseUp = function () {
-        form.setAddressCoords(dragElement);
+        window.form.setAddressCoords(dragElement);
         showMapPins();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
@@ -79,5 +74,4 @@
       document.addEventListener('mouseup', onMouseUp);
     }
   };
-})()
-
+})();

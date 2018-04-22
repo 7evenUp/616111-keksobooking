@@ -17,23 +17,23 @@
     createAnnounElement: function (avatarNumber) {
       var photoNumber = avatarNumber < 9 ? '0' + (avatarNumber + 1) : avatarNumber + 1;
       var avatarSrc = 'img/avatars/user' + photoNumber + '.png';
-      var coordX = util.getRandomInteger(X_LEFT_BORDER, X_RIGHT_BORDER);
-      var coordY = util.getRandomInteger(Y_TOP_BORDER, Y_BOTTOM_BORDER);
-      var firstPart = util.getRandomInteger(0, 3);
-      var secondPart = util.getRandomInteger(3, FEATURES.length - 1);
+      var coordX = window.util.getRandomInteger(X_LEFT_BORDER, X_RIGHT_BORDER);
+      var coordY = window.util.getRandomInteger(Y_TOP_BORDER, Y_BOTTOM_BORDER);
+      var firstPart = window.util.getRandomInteger(0, 3);
+      var secondPart = window.util.getRandomInteger(3, FEATURES.length - 1);
       return {
         author: {
           avatar: avatarSrc
         },
         offer: {
-          title: TITLES[util.getRandomInteger(0, TITLES.length - 1)],
+          title: TITLES[window.util.getRandomInteger(0, TITLES.length - 1)],
           address: coordX + ', ' + coordY,
-          price: util.getRandomInteger(MIN_PRICE, MAX_PRICE),
-          type: TYPES[util.getRandomInteger(0, TYPES.length - 1)],
-          rooms: util.getRandomInteger(1, 5),
-          guests: util.getRandomInteger(1, 5),
-          checkin: TIMINGS[util.getRandomInteger(0, TIMINGS.length - 1)],
-          checkout: TIMINGS[util.getRandomInteger(0, TIMINGS.length - 1)],
+          price: window.util.getRandomInteger(MIN_PRICE, MAX_PRICE),
+          type: TYPES[window.util.getRandomInteger(0, TYPES.length - 1)],
+          rooms: window.util.getRandomInteger(1, 5),
+          guests: window.util.getRandomInteger(1, 5),
+          checkin: TIMINGS[window.util.getRandomInteger(0, TIMINGS.length - 1)],
+          checkout: TIMINGS[window.util.getRandomInteger(0, TIMINGS.length - 1)],
           features: FEATURES.slice(firstPart, secondPart),
           description: '',
           photos: ACCOMODATION_PHOTOS
@@ -45,4 +45,4 @@
       };
     }
   };
-})()
+})();
