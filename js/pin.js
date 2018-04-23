@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.pin = (function () {
   var ESC_KEYCODE = 27;
   var dom = window.util.dom;
 
@@ -34,7 +34,7 @@
     });
   };
 
-  window.pin = {
+  return {
     createMapPin: function (arrElement) {
       var mapPin = dom.template.querySelector('.map__pin').cloneNode(true);
       mapPin.style.left = window.util.getPinPosX(arrElement.location.x) + 'px';

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.card = (function () {
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var HOUSE_TYPES = {
     flat: 'Квартира',
@@ -30,7 +30,7 @@
     }
   };
 
-  window.card = {
+  return {
     createMapCard: function (array) {
       var dom = window.util.dom;
       var currency = '₽/ночь';

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.form = (function () {
   var MAIN_PIN_SIZE = 65;
   var SHARP_END_HEIGHT = 12;
 
@@ -95,7 +95,7 @@
     }
   };
 
-  window.form = {
+  return {
     validateForms: function () {
       titleInput.addEventListener('invalid', onTitleInputInvalid);
       typeSelect.addEventListener('change', onTypeSelectChange);

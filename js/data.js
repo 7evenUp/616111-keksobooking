@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.data = (function () {
   var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
   var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var TIMINGS = ['12:00', '13:00', '14:00'];
@@ -13,7 +13,7 @@
   var MIN_PRICE = 1000;
   var MAX_PRICE = 1000000;
 
-  window.data = {
+  return {
     createAnnounElement: function (avatarNumber) {
       var photoNumber = avatarNumber < 9 ? '0' + (avatarNumber + 1) : avatarNumber + 1;
       var avatarSrc = 'img/avatars/user' + photoNumber + '.png';

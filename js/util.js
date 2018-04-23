@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.util = (function () {
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
   var Y_TOP_BORDER = 150;
@@ -19,7 +19,7 @@
     address: document.querySelector('#address')
   };
 
-  window.util = {
+  return {
     dom: DOM,
     getRandomInteger: function (min, max) {
       var rand = min - 0.5 + Math.random() * (max - min + 1);

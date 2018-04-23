@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.map = (function () {
   var NUMBER_OF_PINS = 8;
 
   var dom = window.util.dom;
@@ -34,7 +34,7 @@
     mapPins.appendChild(pinFragment);
   };
 
-  window.map = {
+  return {
     onMainPinMouseDown: function (evt) {
       activateMap();
       var dragElement = evt.target;
