@@ -24,7 +24,11 @@ window.form = (function () {
     } else if (titleInput.validity.valueMissing) {
       titleInput.setCustomValidity('Обязательное поле для заполнения');
     } else {
-      titleInput.setCustomValidity('');
+      titleInput.addEventListener('input', function () {
+        if (!titleInput.validity.valid) {
+         titleInput.setCustomValidity('');
+       }
+      });
     }
   };
 

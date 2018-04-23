@@ -59,8 +59,8 @@ window.map = (function () {
           y: moveEvt.clientY
         };
 
-        dom.mainPin.style.top = dom.mainPin.offsetTop - shift.y + 'px';
-        dom.mainPin.style.left = dom.mainPin.offsetLeft - shift.x + 'px';
+        dom.mainPin.style.top = (dom.mainPin.offsetTop - shift.y) + 'px';
+        dom.mainPin.style.left = (dom.mainPin.offsetLeft - shift.x) + 'px';
       };
 
       var onMouseUp = function () {
