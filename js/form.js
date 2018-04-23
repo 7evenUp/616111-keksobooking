@@ -26,8 +26,8 @@ window.form = (function () {
     } else {
       titleInput.addEventListener('input', function () {
         if (!titleInput.validity.valid) {
-         titleInput.setCustomValidity('');
-       }
+          titleInput.setCustomValidity('');
+        }
       });
     }
   };
