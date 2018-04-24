@@ -17,6 +17,10 @@ window.form = (function () {
   var guestsSelect = form.querySelector('#capacity');
 
   var onTitleInputInvalid = function () {
+    titleInput.addEventListener('input', function () {
+      titleInput.setCustomValidity('');
+    });
+
     if (titleInput.validity.tooShort) {
       titleInput.setCustomValidity('Заголовок должен состоять минимум из 30-ти символов');
     } else if (titleInput.validity.tooLong) {
@@ -24,11 +28,7 @@ window.form = (function () {
     } else if (titleInput.validity.valueMissing) {
       titleInput.setCustomValidity('Обязательное поле для заполнения');
     } else {
-      titleInput.addEventListener('input', function () {
-        if (!titleInput.validity.valid) {
-          titleInput.setCustomValidity('');
-        }
-      });
+      titleInput.setCustomValidity('');
     }
   };
 
