@@ -1,7 +1,6 @@
 'use strict';
 
 window.backend = (function () {
-  var SEND_DATA_URL = 'https://js.dump.academy/keksobooking';
   var dom = window.util.dom;
 
   var onSuccess = function () {
@@ -24,7 +23,9 @@ window.backend = (function () {
     div.style.lineHeight = 30 + 'px';
     div.style.color = 'red';
     dom.body.appendChild(div);
-    setTimeout(function () {dom.body.removeChild(div)}, 3500);
+    setTimeout(function () {
+      dom.body.removeChild(div);
+    }, 3500);
   };
 
   return {

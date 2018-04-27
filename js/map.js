@@ -1,8 +1,6 @@
 'use strict';
 
 window.map = (function () {
-  var NUMBER_OF_PINS = 8;
-
   var dom = window.util.dom;
 
   var activateMap = function () {
