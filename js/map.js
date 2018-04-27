@@ -22,19 +22,17 @@ window.map = (function () {
     }
   };
 
-  var showMapPins = function () {
-    var pinFragment = document.createDocumentFragment();
-    var mapPins = dom.mapPinsList;
-    deletePins(mapPins.children);
-    for (var i = 0; i < NUMBER_OF_PINS; i++) {
-      var announElement = window.data.createAnnounElement(i);
-      var mapPin = window.pin.createMapPin(announElement);
-      pinFragment.appendChild(mapPin);
-    }
-    mapPins.appendChild(pinFragment);
-  };
-
   return {
+    showMapPins: function (announElement) {
+      var pinFragment = document.createDocumentFragment();
+      var mapPins = dom.mapPinsList;
+      deletePins(mapPins.children);
+      for (var i = 0; i < announElement.length; i++) {
+        var mapPin = window.pin.createMapPin(announElement[i]);
+        pinFragment.appendChild(mapPin);
+      }
+      mapPins.appendChild(pinFragment);
+    },
     onMainPinMouseDown: function (evt) {
       activateMap();
       var dragElement = evt.target;
@@ -65,7 +63,7 @@ window.map = (function () {
 
       var onMouseUp = function () {
         window.form.setAddressCoords(dragElement);
-        showMapPins();
+        window.backend.getData();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
       };
