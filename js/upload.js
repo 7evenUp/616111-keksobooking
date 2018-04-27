@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var URL = 'https://js.dump.academy/keksobooking';
 
   window.upload = function (data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -23,7 +24,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     })
 
-    xhr.open('POST', 'https://js.dump.academy/keksobooking');
+    xhr.open('POST', URL);
     xhr.send(data);
   };
 

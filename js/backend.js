@@ -32,10 +32,7 @@ window.backend = (function () {
       window.load(window.map.showMapPins, onError);
     },
     sendData: function () {
-      window.upload(new FormData(dom.form), function (response) {
-        var success = document.querySelector('.success');
-        success.classList.remove('hidden');
-      }, onError);
+      window.upload(new FormData(dom.form), onSuccess, onError);
     }
   };
 
