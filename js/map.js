@@ -1,8 +1,6 @@
 'use strict';
 
 window.map = (function () {
-  var NUMBER_OF_PINS = 8;
-
   var dom = window.util.dom;
 
   var activateMap = function () {
@@ -22,23 +20,20 @@ window.map = (function () {
     }
   };
 
-  var showMapPins = function () {
-    var pinFragment = document.createDocumentFragment();
-    var mapPins = dom.mapPinsList;
-    deletePins(mapPins.children);
-    for (var i = 0; i < NUMBER_OF_PINS; i++) {
-      var announElement = window.data.createAnnounElement(i);
-      var mapPin = window.pin.createMapPin(announElement);
-      pinFragment.appendChild(mapPin);
-    }
-    mapPins.appendChild(pinFragment);
-  };
-
   return {
+    showMapPins: function (pinArray) {
+      var pinFragment = document.createDocumentFragment();
+      var mapPins = dom.mapPinsList;
+      deletePins(mapPins.children);
+      for (var i = 0; i < pinArray.length; i++) {
+        var mapPin = window.pin.createMapPin(pinArray[i]);
+        pinFragment.appendChild(mapPin);
+      }
+      mapPins.appendChild(pinFragment);
+    },
     onMainPinMouseDown: function (evt) {
       activateMap();
       var dragElement = evt.target;
-      dom.mainPin.style.zIndex = 1000;
 
       var startCoords = {
         x: evt.clientX,
@@ -65,7 +60,7 @@ window.map = (function () {
 
       var onMouseUp = function () {
         window.form.setAddressCoords(dragElement);
-        showMapPins();
+        window.backend.getData();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
       };

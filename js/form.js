@@ -60,11 +60,11 @@ window.form = (function () {
     }
   };
 
-  var onTimeSelectChange = function (e) {
-    if (e.target === timeInSelect) {
-      syncTimeSelects(e.target, timeOutSelect);
+  var onTimeSelectChange = function (evt) {
+    if (evt.target === timeInSelect) {
+      syncTimeSelects(evt.target, timeOutSelect);
     } else {
-      syncTimeSelects(e.target, timeInSelect);
+      syncTimeSelects(evt.target, timeInSelect);
     }
   };
 
@@ -99,12 +99,18 @@ window.form = (function () {
     }
   };
 
+  var onFormSumbit = function (evt) {
+    evt.preventDefault();
+    window.backend.sendData();
+  };
+
   return {
     validateForms: function () {
       titleInput.addEventListener('invalid', onTitleInputInvalid);
       typeSelect.addEventListener('change', onTypeSelectChange);
       timeSelects.addEventListener('change', onTimeSelectChange);
       roomSelect.addEventListener('change', onRoomSelectChange);
+      form.addEventListener('submit', onFormSumbit);
     },
     setAddressCoords: function (trgt) {
       var address = dom.address;
