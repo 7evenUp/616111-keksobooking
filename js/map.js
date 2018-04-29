@@ -21,12 +21,12 @@ window.map = (function () {
   };
 
   return {
-    showMapPins: function (announElement) {
+    showMapPins: function (pinArray) {
       var pinFragment = document.createDocumentFragment();
       var mapPins = dom.mapPinsList;
       deletePins(mapPins.children);
-      for (var i = 0; i < announElement.length; i++) {
-        var mapPin = window.pin.createMapPin(announElement[i]);
+      for (var i = 0; i < pinArray.length; i++) {
+        var mapPin = window.pin.createMapPin(pinArray[i]);
         pinFragment.appendChild(mapPin);
       }
       mapPins.appendChild(pinFragment);
@@ -34,7 +34,6 @@ window.map = (function () {
     onMainPinMouseDown: function (evt) {
       activateMap();
       var dragElement = evt.target;
-      dom.mainPin.style.zIndex = 1000;
 
       var startCoords = {
         x: evt.clientX,

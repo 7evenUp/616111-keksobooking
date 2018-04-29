@@ -4,9 +4,9 @@ window.pin = (function () {
   var ESC_KEYCODE = 27;
   var dom = window.util.dom;
 
-  var openPopup = function (array) {
+  var openPopup = function (arrElem) {
     var cardFragment = document.createDocumentFragment();
-    var mapCard = window.card.createMapCard(array);
+    var mapCard = window.card.createMapCard(arrElem);
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.filters);
 
@@ -22,7 +22,7 @@ window.pin = (function () {
   var closePopup = function () {
     var popup = document.querySelector('.popup');
     if (popup) {
-      dom.map.removeChild(document.querySelector('.popup'));
+      dom.map.removeChild(popup);
       document.removeEventListener('keydown', onPopupEscPress);
     }
   };

@@ -21,14 +21,6 @@ window.util = (function () {
 
   return {
     dom: DOM,
-    getRandomInteger: function (min, max) {
-      var rand = min - 0.5 + Math.random() * (max - min + 1);
-      rand = Math.round(rand);
-      return rand;
-    },
-    compareFunction: function () {
-      return Math.random() - 0.5;
-    },
     getPinPosX: function (x) {
       var offsetX = Math.round(PIN_WIDTH / 2);
       return x - offsetX;
@@ -48,7 +40,7 @@ window.util = (function () {
       }
       var leftBorder = parseInt(DOM.mainPin.style.left, 10);
       if (leftBorder < 0) {
-        DOM.mainPin.style.left = 0 + 'px';
+        DOM.mainPin.style.left = 0;
       }
       var rightBorder = parseInt(DOM.mainPin.style.left, 10) + MAIN_PIN_SIZE;
       if (rightBorder > DOM.body.clientWidth) {

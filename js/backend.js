@@ -6,6 +6,9 @@ window.backend = (function () {
   var onSuccess = function () {
     var success = document.querySelector('.success');
     success.classList.remove('hidden');
+    setTimeout(function () {
+      success.classList.add('hidden');
+    }, 2000);
   };
 
   var onError = function (errorMessage) {
