@@ -14,12 +14,12 @@ window.backend = (function () {
   var onLoad = function (data) {
     window.map.showMapPins(data);
 
-    dom.filters.addEventListener('change', function (evt) {
+    dom.filters.addEventListener('change', function () {
       if (timeout) {
         window.clearTimeout(timeout);
       }
       var timeout = window.setTimeout(function () {
-        window.filter.updateMap(data, evt);
+        window.filter.updateMap(data);
       }, 500);
     });
   };

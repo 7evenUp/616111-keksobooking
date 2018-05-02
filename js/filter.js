@@ -47,15 +47,15 @@ window.filter = (function () {
     if (Filter.ROOMS.value === 'any') {
       return it;
     } else {
-      return it.offer.rooms === parseInt(Filter.ROOMS.value);
+      return it.offer.rooms === parseInt(Filter.ROOMS.value, 10);
     }
-  }
+  };
 
   var isSameGuests = function (it) {
     if (Filter.GUESTS.value === 'any') {
       return it;
     } else {
-      return it.offer.guests === parseInt(Filter.GUESTS.value);
+      return it.offer.guests === parseInt(Filter.GUESTS.value, 10);
     }
   };
 
@@ -68,7 +68,7 @@ window.filter = (function () {
   // };
 
   return {
-    updateMap: function (pins, evt) {
+    updateMap: function (pins) {
       var uniquePins = pins.filter(function (item) {
         return isSameType(item) && isSamePrice(item) && isSameRooms(item) && isSameGuests(item);
       });
