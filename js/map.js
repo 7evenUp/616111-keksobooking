@@ -25,11 +25,9 @@ window.map = (function () {
       var pinFragment = document.createDocumentFragment();
       var mapPins = dom.mapPinsList;
       deletePins(mapPins.children);
-      data.forEach(function (item, i) {
-        if (i < 5) {
-          var mapPin = window.pin.createMapPin(item);
-          pinFragment.appendChild(mapPin);
-        }
+      data.slice(0, 5).forEach(function (item) {
+        var mapPin = window.pin.createMapPin(item);
+        pinFragment.appendChild(mapPin);
       });
       mapPins.appendChild(pinFragment);
     },
@@ -67,9 +65,6 @@ window.map = (function () {
       };
 
       activateMap();
-      // dom.filters.addEventListener('change', function () {
-
-      // });
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
     }

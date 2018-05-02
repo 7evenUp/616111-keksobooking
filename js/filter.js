@@ -59,18 +59,47 @@ window.filter = (function () {
     }
   };
 
-  // var isSameFeatures = function (it, checked) {
-  //   return it.offer.features.every(function (elem1) {
-  //     return checked.some(function (elem2) {
-  //       return elem1 === elem2;
-  //     });
-  //   });
-  // };
+  var isSameFeatures = function (it, checked) {
+    if (checked.length === 0) {
+      return it;
+    } else {
+      var flag = true;
+
+      if (!checked.every(function (elem) {
+        return it.offer.features.some(function (elem1) {
+          return elem === elem1;
+        });
+      })) {
+        flag = false;
+      }
+      return flag;
+    }
+  };
+
+  var checkedFeatures = [];
+  var createCheckedFeatures = function (array, evt) {
+    var target = evt.target;
+    if (target.type === 'checkbox') {
+      if (array.some(function (elem) {
+        return elem === target.value;
+      })) {
+        array.some(function (elem) {
+          if (elem === target.value) {
+            array.splice(array.indexOf(elem), 1);
+          }
+        });
+      } else {
+        array.push(target.value);
+      }
+    }
+  };
 
   return {
-    updateMap: function (pins) {
+    updateMap: function (pins, evt) {
+      createCheckedFeatures(checkedFeatures, evt);
+
       var uniquePins = pins.filter(function (item) {
-        return isSameType(item) && isSamePrice(item) && isSameRooms(item) && isSameGuests(item);
+        return isSameType(item) && isSamePrice(item) && isSameRooms(item) && isSameGuests(item) && isSameFeatures(item, checkedFeatures);
       });
 
       window.map.showMapPins(uniquePins);

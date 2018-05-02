@@ -16,7 +16,7 @@ window.card = (function () {
       photos.removeChild(image);
     }
     for (var i = 0; i < arrElem.offer.photos.length; i++) {
-      if (i !== 0) {
+      if (i > 0) {
         photos.appendChild(image.cloneNode()).src = arrElem.offer.photos[i];
       } else {
         image.src = arrElem.offer.photos[i];
