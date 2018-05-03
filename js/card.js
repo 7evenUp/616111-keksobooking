@@ -16,10 +16,10 @@ window.card = (function () {
       photos.removeChild(image);
     }
     for (var i = 0; i < arrElem.offer.photos.length; i++) {
-      if (i === 0) {
-        image.src = arrElem.offer.photos[0];
-      } else {
+      if (i > 0) {
         photos.appendChild(image.cloneNode()).src = arrElem.offer.photos[i];
+      } else {
+        image.src = arrElem.offer.photos[i];
       }
     }
   };
@@ -40,8 +40,11 @@ window.card = (function () {
     createMapCard: function (arrElem) {
       var dom = window.util.dom;
       var currency = '₽/ночь';
-      var roomsAndGuests = arrElem.offer.rooms + ' комнаты для ' + arrElem.offer.guests + ' гостей';
+      var roomString = arrElem.offer.rooms > 1 ? ' комнаты для ' : ' комната для ';
+      var guestString = arrElem.offer.guests > 1 ? ' гостей' : ' гостя';
+      var roomsAndGuests = arrElem.offer.rooms + roomString + arrElem.offer.guests + guestString;
       var checkinCheckout = 'Заезд после ' + arrElem.offer.checkin + ', выезд до ' + arrElem.offer.checkout;
+
       var mapCard = dom.template.querySelector('.map__card').cloneNode(true);
       mapCard.querySelector('.popup__title').textContent = arrElem.offer.title;
       mapCard.querySelector('.popup__text--address').textContent = arrElem.offer.address;

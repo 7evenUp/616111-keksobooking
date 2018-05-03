@@ -21,18 +21,17 @@ window.map = (function () {
   };
 
   return {
-    showMapPins: function (pinArray) {
+    showMapPins: function (data) {
       var pinFragment = document.createDocumentFragment();
       var mapPins = dom.mapPinsList;
       deletePins(mapPins.children);
-      for (var i = 0; i < pinArray.length; i++) {
-        var mapPin = window.pin.createMapPin(pinArray[i]);
+      data.slice(0, 5).forEach(function (item) {
+        var mapPin = window.pin.createMapPin(item);
         pinFragment.appendChild(mapPin);
-      }
+      });
       mapPins.appendChild(pinFragment);
     },
     onMainPinMouseDown: function (evt) {
-      activateMap();
       var dragElement = evt.target;
 
       var startCoords = {
@@ -65,6 +64,7 @@ window.map = (function () {
         document.removeEventListener('mouseup', onMouseUp);
       };
 
+      activateMap();
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
     }

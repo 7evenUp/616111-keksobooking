@@ -11,6 +11,20 @@ window.backend = (function () {
     }, 2000);
   };
 
+  var onLoad = function (data) {
+    window.map.showMapPins(data);
+
+    var timeout;
+    dom.filters.addEventListener('change', function (evt) {
+      if (timeout) {
+        window.clearTimeout(timeout);
+      }
+      timeout = window.setTimeout(function () {
+        window.filter.updateMap(data, evt);
+      }, 500);
+    });
+  };
+
   var onError = function (errorMessage) {
     var div = document.createElement('div');
     div.style.zIndex = 1000;
@@ -33,7 +47,7 @@ window.backend = (function () {
 
   return {
     getData: function () {
-      window.load(window.map.showMapPins, onError);
+      window.load(onLoad, onError);
     },
     sendData: function () {
       window.upload(new FormData(dom.form), onSuccess, onError);

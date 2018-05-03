@@ -15,6 +15,7 @@ window.util = (function () {
     template: document.querySelector('template').content,
     filters: document.querySelector('.map__filters-container'),
     form: document.querySelector('.ad-form'),
+    features: document.querySelector('#housing-features'),
     fieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset'),
     address: document.querySelector('#address')
   };

@@ -4,15 +4,6 @@ window.pin = (function () {
   var ESC_KEYCODE = 27;
   var dom = window.util.dom;
 
-  var openPopup = function (arrElem) {
-    var cardFragment = document.createDocumentFragment();
-    var mapCard = window.card.createMapCard(arrElem);
-    cardFragment.appendChild(mapCard);
-    dom.map.insertBefore(cardFragment, dom.filters);
-
-    document.addEventListener('keydown', onPopupEscPress);
-  };
-
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       closePopup();
@@ -27,11 +18,21 @@ window.pin = (function () {
     }
   };
 
-  var addCloseEvent = function () {
+  var addCloseEvents = function () {
     var closeMapCard = document.querySelector('.popup__close');
     closeMapCard.addEventListener('click', function () {
       closePopup();
     });
+    document.addEventListener('keydown', onPopupEscPress);
+  };
+
+  var openPopup = function (arrElem) {
+    var cardFragment = document.createDocumentFragment();
+    var mapCard = window.card.createMapCard(arrElem);
+    cardFragment.appendChild(mapCard);
+    dom.map.insertBefore(cardFragment, dom.filters);
+
+    addCloseEvents();
   };
 
   return {
@@ -47,7 +48,6 @@ window.pin = (function () {
           closePopup();
         }
         openPopup(arrElement);
-        addCloseEvent();
       });
 
       return mapPin;
