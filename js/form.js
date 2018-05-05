@@ -99,10 +99,27 @@ window.form = (function () {
     }
   };
 
+  var setCoordinations = function (trgt) {
+    var address = dom.address;
+    var left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
+    var top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE / 2);
+    if (!trgt) {
+      address.value = left + ', ' + top;
+    } else {
+      left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
+      top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE + SHARP_END_HEIGHT);
+      address.value = left + ', ' + top;
+    }
+  };
+
+//s
   var onFormSumbit = function (evt) {
     evt.preventDefault();
     window.backend.sendData();
+    window.map.deactivateMap();
+    setCoordinations();
   };
+
 
   return {
     validateForms: function () {
@@ -112,18 +129,7 @@ window.form = (function () {
       roomSelect.addEventListener('change', onRoomSelectChange);
       form.addEventListener('submit', onFormSumbit);
     },
-    setAddressCoords: function (trgt) {
-      var address = dom.address;
-      var left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
-      var top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE / 2);
-      if (!trgt) {
-        address.value = left + ', ' + top;
-      } else {
-        left = Math.round(parseInt(dom.mainPin.style.left, 10) + MAIN_PIN_SIZE / 2);
-        top = Math.round(parseInt(dom.mainPin.style.top, 10) + MAIN_PIN_SIZE + SHARP_END_HEIGHT);
-        address.value = left + ', ' + top;
-      }
-    },
+    setAddressCoords: setCoordinations
 
   };
 })();

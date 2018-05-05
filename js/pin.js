@@ -30,7 +30,7 @@ window.pin = (function () {
     var cardFragment = document.createDocumentFragment();
     var mapCard = window.card.createMapCard(arrElem);
     cardFragment.appendChild(mapCard);
-    dom.map.insertBefore(cardFragment, dom.filters);
+    dom.map.insertBefore(cardFragment, dom.divFilters);
 
     addCloseEvents();
   };
@@ -51,6 +51,7 @@ window.pin = (function () {
       });
 
       return mapPin;
-    }
+    },
+    closePopup: closePopup
   };
 })();

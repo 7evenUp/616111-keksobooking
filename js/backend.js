@@ -13,13 +13,15 @@ window.backend = (function () {
 
   var onLoad = function (data) {
     window.map.showMapPins(data);
+    window.util.undisableFilter();
 
     var timeout;
-    dom.filters.addEventListener('change', function (evt) {
+    dom.divFilters.addEventListener('change', function (evt) {
       if (timeout) {
         window.clearTimeout(timeout);
       }
       timeout = window.setTimeout(function () {
+        window.pin.closePopup();
         window.filter.updateMap(data, evt);
       }, 500);
     });

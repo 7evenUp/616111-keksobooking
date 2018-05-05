@@ -4,17 +4,17 @@ window.filter = (function () {
   var dom = window.util.dom;
 
   var Filter = {
-    TYPE: dom.filters.querySelector('#housing-type'),
-    PRICE: dom.filters.querySelector('#housing-price'),
-    ROOMS: dom.filters.querySelector('#housing-rooms'),
-    GUESTS: dom.filters.querySelector('#housing-guests'),
-    FEATURES: dom.filters.querySelector('#housing-features').children,
-    WIFI: dom.filters.querySelector('#filter-wifi'),
-    DISHWASHER: dom.filters.querySelector('#filter-dishwasher'),
-    PARKING: dom.filters.querySelector('#filter-parking'),
-    WASHER: dom.filters.querySelector('#filter-washer'),
-    ELEVATOR: dom.filters.querySelector('#filter-elevator'),
-    CONDITIONER: dom.filters.querySelector('#filter-conditioner')
+    TYPE: dom.divFilters.querySelector('#housing-type'),
+    PRICE: dom.divFilters.querySelector('#housing-price'),
+    ROOMS: dom.divFilters.querySelector('#housing-rooms'),
+    GUESTS: dom.divFilters.querySelector('#housing-guests'),
+    FEATURES: dom.divFilters.querySelector('#housing-features').children,
+    WIFI: dom.divFilters.querySelector('#filter-wifi'),
+    DISHWASHER: dom.divFilters.querySelector('#filter-dishwasher'),
+    PARKING: dom.divFilters.querySelector('#filter-parking'),
+    WASHER: dom.divFilters.querySelector('#filter-washer'),
+    ELEVATOR: dom.divFilters.querySelector('#filter-elevator'),
+    CONDITIONER: dom.divFilters.querySelector('#filter-conditioner')
   };
 
   var transferNumToStr = function (num) {
@@ -59,13 +59,13 @@ window.filter = (function () {
     }
   };
 
-  var isSameFeatures = function (it, checked) {
-    if (checked.length === 0) {
-      return it;
+  var isSameFeatures = function (it, checkedArr) {
+    if (checkedArr.length === 0) {
+      return true;
     } else {
       var flag = true;
 
-      if (!checked.every(function (elem) {
+      if (!checkedArr.every(function (elem) {
         return it.offer.features.some(function (elem1) {
           return elem === elem1;
         });

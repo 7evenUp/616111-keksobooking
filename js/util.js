@@ -13,11 +13,15 @@ window.util = (function () {
     mapPinsList: document.querySelector('.map__pins'),
     mainPin: document.querySelector('.map__pin--main'),
     template: document.querySelector('template').content,
-    filters: document.querySelector('.map__filters-container'),
+    divFilters: document.querySelector('.map__filters-container'),
+    mapFilters: document.querySelector('.map__filters'),
+    filterSelects: document.querySelectorAll('.map__filter'),
+    filterFeatures: document.querySelector('.map__features'),
     form: document.querySelector('.ad-form'),
     features: document.querySelector('#housing-features'),
     fieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset'),
-    address: document.querySelector('#address')
+    address: document.querySelector('#address'),
+    resetButton: document.querySelector('.ad-form__reset')
   };
 
   return {
@@ -53,5 +57,21 @@ window.util = (function () {
         DOM.fieldsets[i].setAttribute('disabled', 'disabled');
       }
     },
+    disableFilter: function () {
+      for (var i = 0; i < DOM.filterSelects.length; i++) {
+        DOM.filterSelects[i].setAttribute('disabled', 'disabled');
+      }
+      DOM.filterFeatures.setAttribute('disabled', 'disabled');
+    },
+    undisableFilter: function () {
+      for (var i = 0; i < DOM.filterSelects.length; i++) {
+        DOM.filterSelects[i].removeAttribute('disabled');
+      }
+      DOM.filterFeatures.removeAttribute('disabled');
+    },
+    clearForms: function (form, filter) {
+      form.reset();
+      filter.reset();
+    }
   };
 })();
