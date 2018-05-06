@@ -59,5 +59,4 @@ window.card = (function () {
       return mapCard;
     }
   };
-
 })();
