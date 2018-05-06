@@ -112,7 +112,6 @@ window.form = (function () {
     }
   };
 
-//s
   var onFormSumbit = function (evt) {
     evt.preventDefault();
     window.backend.sendData();
@@ -130,6 +129,5 @@ window.form = (function () {
       form.addEventListener('submit', onFormSumbit);
     },
     setAddressCoords: setCoordinations
-
   };
 })();

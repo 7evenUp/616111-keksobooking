@@ -7,14 +7,7 @@ window.filter = (function () {
     TYPE: dom.divFilters.querySelector('#housing-type'),
     PRICE: dom.divFilters.querySelector('#housing-price'),
     ROOMS: dom.divFilters.querySelector('#housing-rooms'),
-    GUESTS: dom.divFilters.querySelector('#housing-guests'),
-    FEATURES: dom.divFilters.querySelector('#housing-features').children,
-    WIFI: dom.divFilters.querySelector('#filter-wifi'),
-    DISHWASHER: dom.divFilters.querySelector('#filter-dishwasher'),
-    PARKING: dom.divFilters.querySelector('#filter-parking'),
-    WASHER: dom.divFilters.querySelector('#filter-washer'),
-    ELEVATOR: dom.divFilters.querySelector('#filter-elevator'),
-    CONDITIONER: dom.divFilters.querySelector('#filter-conditioner')
+    GUESTS: dom.divFilters.querySelector('#housing-guests')
   };
 
   var transferNumToStr = function (num) {
@@ -105,5 +98,4 @@ window.filter = (function () {
       window.map.showMapPins(uniquePins);
     }
   };
-
 })();

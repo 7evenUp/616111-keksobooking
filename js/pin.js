@@ -2,6 +2,7 @@
 
 window.pin = (function () {
   var ESC_KEYCODE = 27;
+
   var dom = window.util.dom;
 
   var onPopupEscPress = function (evt) {
@@ -27,11 +28,13 @@ window.pin = (function () {
   };
 
   var openPopup = function (arrElem) {
+    if (document.querySelector('.popup')) {
+      closePopup();
+    }
     var cardFragment = document.createDocumentFragment();
     var mapCard = window.card.createMapCard(arrElem);
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.divFilters);
-
     addCloseEvents();
   };
 
@@ -44,9 +47,6 @@ window.pin = (function () {
       mapPin.querySelector('img').alt = arrElement.offer.title;
 
       mapPin.addEventListener('click', function () {
-        if (document.querySelector('.popup')) {
-          closePopup();
-        }
         openPopup(arrElement);
       });
 

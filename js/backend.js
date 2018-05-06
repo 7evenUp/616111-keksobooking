@@ -55,5 +55,4 @@ window.backend = (function () {
       window.upload(new FormData(dom.form), onSuccess, onError);
     }
   };
-
 })();

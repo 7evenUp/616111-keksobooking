@@ -18,7 +18,6 @@ window.util = (function () {
     filterSelects: document.querySelectorAll('.map__filter'),
     filterFeatures: document.querySelector('.map__features'),
     form: document.querySelector('.ad-form'),
-    features: document.querySelector('#housing-features'),
     fieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset'),
     address: document.querySelector('#address'),
     resetButton: document.querySelector('.ad-form__reset')
