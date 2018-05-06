@@ -1,6 +1,9 @@
 'use strict';
 
 window.filter = (function () {
+  var LOWER_PRICE = 10000;
+  var HIGHER_PRICE = 50000;
+
   var dom = window.util.dom;
 
   var Filter = {
@@ -11,9 +14,9 @@ window.filter = (function () {
   };
 
   var transferNumToStr = function (num) {
-    if (num < 10000) {
+    if (num < LOWER_PRICE) {
       return 'low';
-    } else if (num >= 10000 && num <= 50000) {
+    } else if (num >= LOWER_PRICE && num <= HIGHER_PRICE) {
       return 'middle';
     } else {
       return 'high';
@@ -23,50 +26,45 @@ window.filter = (function () {
   var isSameType = function (it) {
     if (Filter.TYPE.value === 'any') {
       return it;
-    } else {
-      return it.offer.type === Filter.TYPE.value;
     }
+    return it.offer.type === Filter.TYPE.value;
   };
 
   var isSamePrice = function (it) {
     if (Filter.PRICE.value === 'any') {
       return it;
-    } else {
-      return transferNumToStr(it.offer.price) === Filter.PRICE.value;
     }
+    return transferNumToStr(it.offer.price) === Filter.PRICE.value;
   };
 
   var isSameRooms = function (it) {
     if (Filter.ROOMS.value === 'any') {
       return it;
-    } else {
-      return it.offer.rooms === parseInt(Filter.ROOMS.value, 10);
     }
+    return it.offer.rooms === parseInt(Filter.ROOMS.value, 10);
   };
 
   var isSameGuests = function (it) {
     if (Filter.GUESTS.value === 'any') {
       return it;
-    } else {
-      return it.offer.guests === parseInt(Filter.GUESTS.value, 10);
     }
+    return it.offer.guests === parseInt(Filter.GUESTS.value, 10);
   };
 
   var isSameFeatures = function (it, checkedArr) {
     if (checkedArr.length === 0) {
       return true;
-    } else {
-      var flag = true;
-
-      if (!checkedArr.every(function (elem) {
-        return it.offer.features.some(function (elem1) {
-          return elem === elem1;
-        });
-      })) {
-        flag = false;
-      }
-      return flag;
     }
+    var flag = true;
+
+    if (!checkedArr.every(function (elem) {
+      return it.offer.features.some(function (elem1) {
+        return elem === elem1;
+      });
+    })) {
+      flag = false;
+    }
+    return flag;
   };
 
   var checkedFeatures = [];
