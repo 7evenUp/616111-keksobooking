@@ -1,6 +1,10 @@
 'use strict';
 
 window.backend = (function () {
+  var SHOW_SUCCESS_TIME = 2000;
+  var UPDATE_TIME = 500;
+  var SHOW_ERROR_TIME = 3500;
+
   var dom = window.util.dom;
 
   var onSuccess = function () {
@@ -8,7 +12,7 @@ window.backend = (function () {
     success.classList.remove('hidden');
     setTimeout(function () {
       success.classList.add('hidden');
-    }, 2000);
+    }, SHOW_SUCCESS_TIME);
   };
 
   var onLoad = function (data) {
@@ -23,7 +27,7 @@ window.backend = (function () {
       timeout = window.setTimeout(function () {
         window.pin.closePopup();
         window.filter.updateMap(data, evt);
-      }, 500);
+      }, UPDATE_TIME);
     });
   };
 
@@ -44,7 +48,7 @@ window.backend = (function () {
     dom.body.appendChild(div);
     setTimeout(function () {
       dom.body.removeChild(div);
-    }, 3500);
+    }, SHOW_ERROR_TIME);
   };
 
   return {
