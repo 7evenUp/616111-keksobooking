@@ -108,7 +108,7 @@ window.form = (function () {
     }
   };
 
-  var onSuccess = function (response) {
+  var onSuccess = function () {
     var success = document.querySelector('.success');
     success.classList.remove('hidden');
     setTimeout(function () {
