@@ -32,14 +32,14 @@ window.pin = (function () {
       closePopup();
     }
     var cardFragment = document.createDocumentFragment();
-    var mapCard = window.card.createMapCard(arrElem);
+    var mapCard = window.card.createPopup(arrElem);
     cardFragment.appendChild(mapCard);
     dom.map.insertBefore(cardFragment, dom.divFilters);
     addCloseEvents();
   };
 
   return {
-    createMapPin: function (arrElement) {
+    create: function (arrElement) {
       var mapPin = dom.template.querySelector('.map__pin').cloneNode(true);
       mapPin.style.left = window.util.getPinPosX(arrElement.location.x) + 'px';
       mapPin.style.top = window.util.getPinPosY(arrElement.location.y) + 'px';

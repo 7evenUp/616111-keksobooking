@@ -93,7 +93,12 @@ window.filter = (function () {
         return isSameType(item) && isSamePrice(item) && isSameRooms(item) && isSameGuests(item) && isSameFeatures(item, checkedFeatures);
       });
 
-      window.map.showMapPins(uniquePins);
+      window.map.showPins(uniquePins);
+    },
+    clearForms: function (filter, form) {
+      checkedFeatures = [];
+      filter.reset();
+      form.reset();
     }
   };
 })();

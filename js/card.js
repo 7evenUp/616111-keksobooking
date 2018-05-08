@@ -2,7 +2,7 @@
 
 window.card = (function () {
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var HOUSE_TYPES = {
+  var HouseType = {
     flat: 'Квартира',
     bungalo: 'Бунгало',
     house: 'Дом',
@@ -37,7 +37,7 @@ window.card = (function () {
   };
 
   return {
-    createMapCard: function (arrElem) {
+    createPopup: function (arrElem) {
       var dom = window.util.dom;
       var currency = '₽/ночь';
       var roomString = arrElem.offer.rooms > 1 ? ' комнаты для ' : ' комната для ';
@@ -49,7 +49,7 @@ window.card = (function () {
       mapCard.querySelector('.popup__title').textContent = arrElem.offer.title;
       mapCard.querySelector('.popup__text--address').textContent = arrElem.offer.address;
       mapCard.querySelector('.popup__text--price').textContent = arrElem.offer.price + currency;
-      mapCard.querySelector('.popup__type').textContent = HOUSE_TYPES[arrElem.offer.type];
+      mapCard.querySelector('.popup__type').textContent = HouseType[arrElem.offer.type];
       mapCard.querySelector('.popup__text--capacity').textContent = roomsAndGuests;
       mapCard.querySelector('.popup__text--time').textContent = checkinCheckout;
       mapCard.querySelector('.popup__description').textContent = arrElem.offer.description;
