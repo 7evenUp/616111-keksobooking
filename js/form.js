@@ -3,7 +3,8 @@
 window.form = (function () {
   var MAIN_PIN_SIZE = 65;
   var SHARP_END_HEIGHT = 12;
-  var MIN_COST_HOUSE_PRICE = {
+  var SHOW_SUCCESS_TIME = 2000;
+  var MinPrice = {
     bungalo: '0',
     flat: '1000',
     house: '5000',
@@ -40,8 +41,8 @@ window.form = (function () {
 
   var onTypeSelectChange = function () {
     var selectedType = typeSelect.options[typeSelect.selectedIndex].value;
-    priceInput.min = MIN_COST_HOUSE_PRICE[selectedType];
-    priceInput.placeholder = MIN_COST_HOUSE_PRICE[selectedType];
+    priceInput.min = MinPrice[selectedType];
+    priceInput.placeholder = MinPrice[selectedType];
   };
 
   var syncTimeSelects = function (firstSelect, secondSelect) {
@@ -75,22 +76,22 @@ window.form = (function () {
     if (selectedRoomNumber === 0) {
       disableOptions(guestsSelect.children);
       selects[2].removeAttribute('disabled');
-      selects[2].selected = 'true';
+      selects[2].setAttribute('selected', 'true');
     } else if (selectedRoomNumber === 1) {
       disableOptions(guestsSelect.children);
       selects[2].removeAttribute('disabled');
       selects[1].removeAttribute('disabled');
-      selects[1].selected = 'true';
+      selects[1].setAttribute('selected', 'true');
     } else if (selectedRoomNumber === 2) {
       disableOptions(guestsSelect.children);
       selects[2].removeAttribute('disabled');
       selects[1].removeAttribute('disabled');
       selects[0].removeAttribute('disabled');
-      selects[0].selected = 'true';
+      selects[0].setAttribute('selected', 'true');
     } else {
       disableOptions(guestsSelect.children);
       selects[3].removeAttribute('disabled');
-      selects[3].selected = 'true';
+      selects[3].setAttribute('selected', 'true');
     }
   };
 
@@ -107,16 +108,23 @@ window.form = (function () {
     }
   };
 
+  var onSuccess = function () {
+    var success = document.querySelector('.success');
+    success.classList.remove('hidden');
+    setTimeout(function () {
+      success.classList.add('hidden');
+    }, SHOW_SUCCESS_TIME);
+  };
+
   var onFormSumbit = function (evt) {
     evt.preventDefault();
-    window.backend.sendData();
-    window.map.deactivateMap();
+    window.backend.upload(onSuccess, window.util.showErrorMsg);
+    window.map.deactivate();
     setCoordinations();
   };
 
-
   return {
-    validateForms: function () {
+    validate: function () {
       titleInput.addEventListener('invalid', onTitleInputInvalid);
       typeSelect.addEventListener('change', onTypeSelectChange);
       timeSelects.addEventListener('change', onTimeSelectChange);
